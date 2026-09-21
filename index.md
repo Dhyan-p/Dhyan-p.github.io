@@ -1,7 +1,7 @@
 # Computer Science 30 Stuff
 
 ## Demos
-- I'll put the first demo here in a bit
+- [Chessboard Demo](Chess Board)
 
 ## Projects
 - Frist assignment will go here
