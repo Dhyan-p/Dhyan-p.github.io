@@ -6,5 +6,5 @@
 - [Square Around Edge of Screen](03-square)
 
 ## Projects
-- Frist assignment will go here
+- [Interactive Scene](scene)
 
