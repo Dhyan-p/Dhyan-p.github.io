@@ -1,3 +1,5 @@
+//Create a Chess Board According to the Windows-width and height
+
 function setup() {
   //make the largest square you can...
   if (windowWidth > windowHeight) {
