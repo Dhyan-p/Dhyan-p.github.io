@@ -10,9 +10,16 @@
 let sceneState = "Night"; // Scene State Can be Change in Betweeen "Day" and "Night"
 let sunRadius, sunX, sunY, moonRadius, moonX, moonY;
 
+// Images
+let landscape1day;
+
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // LoadImage From Assets Folder
+  landscape1day = await loadImage('/assets/images/landscape1-day.png');
+  image(landscape1day, 0, 0);
 
   // Set sunX and sunY Such That it Sets it Slightly Above Horizon in 2nd Quadrant
   sunRadius = (windowHeight/20); // Get 1/20th the Radius of the Total Height
@@ -23,7 +30,6 @@ async function setup() {
   moonRadius = (windowHeight/25); // Moon is Always Smaller Then Sun, Therefor 1/25th the Radius of the Total Height
   moonX = (windowWidth/2) + (windowWidth/4);
   moonY = (windowHeight/2) - (windowHeight/4);
-
 }
 
 function draw() {
@@ -31,6 +37,7 @@ function draw() {
 
   drawSky();
   drawMoonOrSun();
+  // drawLandscape();
 }
 
 function drawSky() {
@@ -48,7 +55,11 @@ function drawMoonOrSun() {
     circle(sunX, sunY, sunRadius*2);
   }
   else if (sceneState === "Night") {
-    fill("white")
+    fill("white");
     circle(moonX, moonY, moonRadius*2);
   }
 }
+
+// function drawLandscape() {
+
+// }
