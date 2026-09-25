@@ -3,12 +3,20 @@
 // Sept 22, 2026
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - Used noise() function for terrain generation (specifically mountains)
 
 
 // State Variables
 let sceneState = "Day"; // Scene State Can be Change in Betweeen "Day" and "Night"
+
+// Mountains
+let noiseScale = 0.005; // Control How Smooth the Mountains Are
+let mountainBase, noiseLevel;
+
+// Sun and Moon
 let sunRadius, sunX, sunY, maxSunY, minSunY, sunArcRatio, moonRadius, moonX, moonY;
+
+// Helpin Variables
 let horizonY; // Halfway of windowHeight
 let distanceFromCenter; // Measure how far mouseX is From the Center of the screen (in abs)
 
@@ -18,11 +26,15 @@ async function setup() {
 
   horizonY = windowHeight/2;
 
+  // Configure Mountains Base (slight below horizon) and noiseLevel (max height)
+  mountainBase = horizonY - 20; 
+  noiseLevel = windowHeight/4;
+
   // Set Sun Such That it Initially Sets it Slightly Above Horizon in 2nd Quadrant
   sunRadius = (windowHeight/20); // Get 1/20th the Radius of the Total Height
   sunX = mouseX;
   maxSunY = sunRadius;
-  minSunY = ((horizonY) - (sunRadius + 5));
+  minSunY = ((horizonY) - (2*sunRadius));
 
   // Set moonX and moonY Such That it Sets in 1st Quadrant
   moonRadius = (windowHeight/25); // Moon is Always Smaller Then Sun, Therefor 1/25th the Radius of the Total Height
@@ -33,6 +45,11 @@ async function setup() {
 function draw() {
   drawSky();
   drawMoonOrSun();
+  drawMountains();
+
+  // Draw Horizon Line for Reference (only while developing)
+  stroke(255, 0, 0);
+  line(0, horizonY, windowWidth, horizonY);
 }
 
 function keyPressed() {
@@ -59,11 +76,37 @@ function drawMoonOrSun() {
     sunArcRatio = (distanceFromCenter / (windowWidth/2)); // Convert Distance From Center Into 0.0 to 1.0 Ratio to Calculate sunY Arc Height.
     sunY = (minSunY * sunArcRatio) + sunRadius; // Change sunY Based on distanceFromCenter and sunArcRatio
 
+    stroke(0);
     fill("Yellow");
     circle(mouseX, sunY, sunRadius*2);
   }
   else if (sceneState === "Night") {
+    noStroke();
     fill("White");
     circle(moonX, moonY, moonRadius*2);
   }
+}
+
+function drawMountains() {
+  // Set Color for Mountains Base on the sceneState
+  if (sceneState === "Day") {
+    fill(80, 110, 90); // Green for Mountains
+  }
+  else if (sceneState === "Night") {
+    fill(20, 40, 40); // Dark teal for Mountains
+  }
+  noStroke();
+  
+  // Start Drawing 2D Shapes
+  beginShape();
+
+  for (let x = 0; x <= windowWidth; x += 2){
+    let noiseX = x * noiseScale;
+    let y = horizonY - (noiseLevel * noise(noiseX));
+    vertex(x, y);
+  }
+
+  vertex(windowWidth, windowHeight);
+  vertex(0, windowHeight);
+  endShape(CLOSE);
 }
