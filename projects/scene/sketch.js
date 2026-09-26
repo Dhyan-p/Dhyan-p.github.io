@@ -1,11 +1,15 @@
+// ========================================================
 // Interactive Scene
 // Dhyan Patel
 // Sept 22, 2026
 //
 // Extra for Experts:
 // - Used noise() function for terrain generation (specifically mountains)
+// - Used mouseWheel(event) to increase/decrease particle speed (rain/snow) with constrain to set minimum and maximum for particle so everything runs smoothly
+// ========================================================
 
 
+// ========================================================
 // Weather Variables
 let weatherState = "Clear"; // Can be "Clear", "Rain", or "Snow"
 let weatherX = [];
@@ -31,7 +35,10 @@ let totalStars = 100;
 // Helpin Variables
 let horizonY; // Halfway of windowHeight
 let distanceFromCenter; // Measure how far mouseX is From the Center of the screen (in abs)
+// ========================================================
 
+
+// ========================================================
 async function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -52,21 +59,62 @@ async function setup() {
   moonX = (windowWidth/2) + (windowWidth/4);
   moonY = (horizonY) - (windowHeight/4);
 
-  // Generate Star Array Cordinates
+  // Generate Cordinates in Array
   generateStarCods();
+  generateWeatherCods();
+}
+// ========================================================
+
+
+// ========================================================
+function generateStarCods() {
+  for (let i = 0; i < totalStars; i++) {
+    celestialBodyX.push(random(0, windowWidth));
+    celestialBodyY.push(random(0, horizonY));
+  }
 }
 
+function generateWeatherCods() {
+  for (let i = 0; i < totalParticles; i++) {
+    weatherX.push(random(0, windowWidth));
+    weatherY.push(random(0, windowHeight));
+  }
+}
+// ========================================================
+
+
+// ========================================================
 function draw() {
   drawSky();
   drawCelestialBody();
   drawMoonOrSun();
   drawMountains();
+  weather();
 
   drawFlashLight();
 
   // Draw Horizon Line for Reference (only while developing)
   stroke(255, 0, 0);
   line(0, horizonY, windowWidth, horizonY);
+}
+// ========================================================
+
+
+// ========================================================
+function mouseWheel(event) {
+  let minParticleSpeed = 5;
+  let maxParticleSpeed = 20;
+
+  // Increase/Decrease Speed
+  if (event.delta > 0) {
+    particalSpeed += 0.5;
+  }
+  else {
+    particalSpeed -= 0.5;
+  }
+
+  // Keep Within minParticleSpeed and maxParticleSpeed
+  particalSpeed = constrain(particalSpeed, minParticleSpeed, maxParticleSpeed);
 }
 
 function keyPressed() {
@@ -76,15 +124,20 @@ function keyPressed() {
   if (keyCode === 78) { // Key 'n'
     sceneState = "Night";
   }
-}
-
-function generateStarCods() {
-  for (let i = 0; i < totalStars; i++) {
-    celestialBodyX.push(random(0, windowWidth));
-    celestialBodyY.push(random(0, horizonY));
+  if (keyCode === 67) {// Key 'c'
+    weatherState = "Clear";
+  }
+  if (keyCode === 82) {// Key 'r'
+    weatherState = "Rain";
+  }
+  if (keyCode === 83) {// Key 's'
+    weatherState = "Snow";
   }
 }
+// ========================================================
 
+
+// ========================================================
 function drawSky() {
   noStroke();
   
@@ -140,14 +193,47 @@ function drawMountains() {
   beginShape();
   
   for (let x = 0; x <= windowWidth; x += 2){
-    let noiseX1 = x * noiseScale;
-    let y = horizonY - (noiseLevel * noise(noiseX1));
+    let noiseX = x * noiseScale;
+    let y = horizonY - (noiseLevel * noise(noiseX));
     vertex(x, y);
   }
   
   vertex(windowWidth, windowHeight);
   vertex(0, windowHeight);
   endShape(CLOSE);
+}
+
+function weather() {
+  if (weatherState === "Clear") {
+    return; // Do Nothing
+  }
+
+  // Move Particle Down. If Particle is Below windownHeight, Reset it Back
+  for (let i = 0; i < weatherX.length; i++) {
+    weatherY[i] += particalSpeed;
+
+    if (weatherY[i] > windowHeight) {
+      weatherY[i] = 0;
+    }
+
+    // Render Rain and Snow
+    // 65, 105, 225
+    if (weatherState === "Rain") {
+      if (sceneState === "Day") {
+        stroke(65, 105, 225, 200); // Vibrant Water Blue
+      }
+      else {
+        stroke(180, 210, 255, 200); // Light Blue
+      }
+      strokeWeight(1);
+      line(weatherX[i], weatherY[i], weatherX[i], weatherY[i] + 10);
+    }
+    else if (weatherState === "Snow") {
+      noStroke();
+      fill(255, 255, 255, 220); // Soft White Snowflake
+      circle(weatherX[i], weatherY[i], random(3, 5));
+    }
+  }
 }
 
 function drawFlashLight() {
@@ -167,3 +253,4 @@ function drawFlashLight() {
     circle(mouseX, mouseY, 120);
   }
 }
+// ========================================================
