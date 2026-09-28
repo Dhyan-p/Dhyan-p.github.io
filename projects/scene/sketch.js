@@ -15,9 +15,9 @@ let weatherState = "Clear"; // Can be "Clear", "Rain", or "Snow"
 let weatherX = [];
 let weatherY = [];
 let totalParticles = 150; 
-let particalSpeed = 5; // Fall Speed Can be Controled by mouseWheel (later)
+let particalSpeed = 5; // Fall Speed Can be Controled by mouseWheel
 
-// Scene
+// Scene State Variable
 let sceneState = "Day"; // Scene State Can be Change in Betweeen "Day" and "Night"
 
 // Mountains
