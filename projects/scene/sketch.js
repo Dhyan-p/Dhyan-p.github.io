@@ -35,6 +35,7 @@ let totalStars = 100;
 // Helpin Variables
 let horizonY; // Halfway of windowHeight
 let distanceFromCenter; // Measure how far mouseX is From the Center of the screen (in abs)
+let showControls = false; // Toggles Control Instructions Menu
 // ========================================================
 
 
@@ -90,6 +91,7 @@ function draw() {
   drawMoonOrSun();
   drawMountains();
   weather();
+  drawUI();
 
   drawFlashLight();
 
@@ -132,6 +134,9 @@ function keyPressed() {
   }
   if (keyCode === 83) {// Key 's'
     weatherState = "Snow";
+  }
+  if (keyCode === 27) {// Key 'ESCAPE'
+    showControls = !showControls;
   }
 }
 // ========================================================
@@ -234,6 +239,101 @@ function weather() {
       circle(weatherX[i], weatherY[i], random(3, 5));
     }
   }
+}
+
+function drawUI() {
+  push();
+  noStroke();
+
+  let margin = 15;
+
+  if (showControls) {
+    // Full Screen Dark Overlay
+    fill(10, 10, 15, 220);
+    rect(0, 0, windowWidth, windowHeight);
+
+    // Centered Container Panel Layout
+    let panelWidth = min(520, windowWidth - 40);
+    let panelHeight = 380;
+    let panelX = (windowWidth - panelWidth)/2;
+    let panelY = (windowHeight - panelHeight)/2;
+
+    // Container Background
+    fill(25, 28, 34);
+    rect(panelX, panelY, panelWidth, panelHeight, 10);
+
+    // Header Title Bar
+    fill(35, 40, 48);
+    rect(panelX, panelY, panelWidth, 45, 10, 10, 0, 0);
+
+    fill(255);
+    textSize(15);
+    textAlign(CENTER, CENTER);
+    text("CONTROLS & SHORTCUTS", windowWidth/2, panelY + 22);
+
+    // Control Item Data
+    let controlsData = [ 
+      { label: "Day Mode", key: "D" }, 
+      { label: "Night Mode", key: "N" },
+      { label: "Rain Weather", key: "R" }, 
+      { label: "Snow Weather", key: "S" }, 
+      { label: "Clear Weather", key: "C" }, 
+      { label: "Adjust Fall Speed", key: "Mouse Wheel" }
+    ];
+
+    let startY = panelY + 58;
+    let rowHeight = 32;
+    let rowGap = 7;
+    let leftWidth = panelWidth * 0.62 - 15; // Width for Action Description
+    let rightWidth = panelWidth * 0.38 - 15; // Width for Key Bind Box
+
+    // Loop ThroughControls to Render Rows
+    for (let i = 0; i < controlsData.length; i++) {
+      let currentY = startY + i * (rowHeight + rowGap);
+      let leftX = panelX + 12;
+      let rightX = leftX + leftWidth + 10;
+
+      // Left Partition: Action Description Box
+      fill(42, 46, 54);
+      rect(leftX, currentY, leftWidth, rowHeight, 4);
+
+      fill(220);
+      textSize(12);
+      textAlign(LEFT, CENTER);
+      text(controlsData[i].label, leftX + 12, currentY + rowHeight/2);
+
+      // Right Partition: Key Bind Box
+      fill(45, 85, 135);
+      rect(rightX, currentY, rightWidth, rowHeight, 4);
+
+      fill(220);
+      textAlign(CENTER, CENTER);
+      text(controlsData[i].key, rightX + rightWidth/2, currentY + rowHeight/2);
+    }
+
+    fill(200, 220, 255);
+    textSize(11);
+    textAlign(CENTER, CENTER);
+    text("[ESC] Close Menu", windowWidth/2, panelY + panelHeight - 16);
+  }
+  else {
+    // Small Bottom-Left Hint Box When Menu is Closed
+    let boxWidth = 135;
+    let boxHeight = 30;
+    let boxX = margin;
+    let boxY = windowHeight - boxHeight - margin;
+
+    // Small Hint Box
+    fill(0, 0, 0, 160);
+    rect(boxX, boxY, boxWidth, boxHeight, 5);
+
+    // Box Text Content
+    fill(255);
+    textSize(11);
+    textAlign(LEFT, CENTER);
+    text("Press ESC for Controls", boxX + 10, boxY + (boxHeight/2));
+  }
+  pop();
 }
 
 function drawFlashLight() {
