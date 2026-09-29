@@ -35,7 +35,10 @@ let totalStars = 100;
 // Helpin Variables
 let horizonY; // Halfway of windowHeight
 let distanceFromCenter; // Measure how far mouseX is From the Center of the screen (in abs)
-let showControls = false; // Toggles Control Instructions Menu
+let showControls = true; // Toggles Control Instructions Menu
+
+// drawUI Variables
+let margin, panelWidth, panelHeight, panelX, panelY, startY, rowHeight, rowGap, leftWidth, rightWidth, currentY, leftX, rightX;
 // ========================================================
 
 
@@ -92,12 +95,14 @@ function draw() {
   drawMountains();
   weather();
   drawUI();
+  changeKeyBindIfAsked();
 
   drawFlashLight();
 
-  // Draw Horizon Line for Reference (only while developing)
+  // Draw Horizon Line and Vertically Split Screen for Reference (only while developing)
   stroke(255, 0, 0);
   line(0, horizonY, windowWidth, horizonY);
+  line(windowWidth/2, 0, windowWidth/2, windowHeight);
 }
 // ========================================================
 
@@ -137,6 +142,25 @@ function keyPressed() {
   }
   if (keyCode === 27) {// Key 'ESCAPE'
     showControls = !showControls;
+  }
+}
+
+function mousePressed() {
+  // Check if showControls Then Check if the Mouse is within Right Partition: Key Bind Box
+  if (showControls) {
+    // Debug
+    console.log(mouseX, mouseY);
+    console.log(rightX, startY);
+    console.log(rightX + rightWidth, startY+rowHeight);
+
+    if (mouseX > rightX && mouseX < rightX + rightWidth) {
+      if (mouseY > startY && mouseY < startY + rowHeight) {
+        console.log("D");
+      }
+      if (mouseY > startY + rowHeight + rowGap && mouseY < startY + 2*rowHeight + rowGap) {
+        console.log("N");
+      }
+    }
   }
 }
 // ========================================================
@@ -245,18 +269,18 @@ function drawUI() {
   push();
   noStroke();
 
-  let margin = 15;
+  margin = 15;
 
   if (showControls) {
     // Full Screen Dark Overlay
     fill(10, 10, 15, 220);
     rect(0, 0, windowWidth, windowHeight);
-
+ 
     // Centered Container Panel Layout
-    let panelWidth = min(520, windowWidth - 40);
-    let panelHeight = 380;
-    let panelX = (windowWidth - panelWidth)/2;
-    let panelY = (windowHeight - panelHeight)/2;
+    panelWidth = min(520, windowWidth - 40);
+    panelHeight = 380;
+    panelX = (windowWidth - panelWidth)/2;
+    panelY = (windowHeight - panelHeight)/2;
 
     // Container Background
     fill(25, 28, 34);
@@ -281,17 +305,17 @@ function drawUI() {
       { label: "Adjust Fall Speed", key: "Mouse Wheel" }
     ];
 
-    let startY = panelY + 58;
-    let rowHeight = 32;
-    let rowGap = 7;
-    let leftWidth = panelWidth * 0.62 - 15; // Width for Action Description
-    let rightWidth = panelWidth * 0.38 - 15; // Width for Key Bind Box
+    startY = panelY + 58;
+    rowHeight = 32;
+    rowGap = 7;
+    leftWidth = panelWidth * 0.62 - 15; // Width for Action Description
+    rightWidth = panelWidth * 0.38 - 15; // Width for Key Bind Box
 
     // Loop ThroughControls to Render Rows
     for (let i = 0; i < controlsData.length; i++) {
-      let currentY = startY + i * (rowHeight + rowGap);
-      let leftX = panelX + 12;
-      let rightX = leftX + leftWidth + 10;
+      currentY = startY + i * (rowHeight + rowGap);
+      leftX = panelX + 12;
+      rightX = leftX + leftWidth + 10;
 
       // Left Partition: Action Description Box
       fill(42, 46, 54);
@@ -334,6 +358,10 @@ function drawUI() {
     text("Press ESC for Controls", boxX + 10, boxY + (boxHeight/2));
   }
   pop();
+}
+
+function changeKeyBindIfAsked() {
+
 }
 
 function drawFlashLight() {
