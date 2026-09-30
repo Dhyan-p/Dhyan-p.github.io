@@ -17,8 +17,8 @@ let weatherY = [];
 let totalParticles = 150; 
 let particalSpeed = 5; // Fall Speed Can be Controled by mouseWheel
 
-// Scene
-let sceneState = "Day"; // Scene State Can be Change in Betweeen "Day" and "Night"
+// Scene State Can be Change in Betweeen "Day" and "Night"
+let sceneState = "Day";
 
 // Mountains
 let noiseScale = 0.005; // Control How Smooth the Mountains Are
@@ -49,7 +49,7 @@ async function setup() {
   mountainBase = horizonY - 20; 
   noiseLevel = windowHeight/4;
 
-  // Set Sun Such That it Initially Sets it Slightly Above Horizon in 2nd Quadrant
+  // Set Sun Such That it Initially Sets it Slightly Above Horizon in 2nd Quadrant on Left Side
   sunRadius = windowHeight/20; // Get 1/20th the Radius of the Total Height
   sunX = mouseX;
   maxSunY = sunRadius;
@@ -92,12 +92,11 @@ function draw() {
   drawMountains();
   weather();
   drawUI();
-
   drawFlashLight();
 
   // Draw Horizon Line for Reference (only while developing)
-  stroke(255, 0, 0);
-  line(0, horizonY, windowWidth, horizonY);
+  // stroke(255, 0, 0);
+  // line(0, horizonY, windowWidth, horizonY);
 }
 // ========================================================
 
@@ -196,7 +195,6 @@ function drawMountains() {
   
   // Start Drawing 2D Shapes
   beginShape();
-  
   for (let x = 0; x <= windowWidth; x += 2){
     let noiseX = x * noiseScale;
     let y = horizonY - (noiseLevel * noise(noiseX));
