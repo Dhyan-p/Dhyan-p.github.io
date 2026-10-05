@@ -39,8 +39,8 @@ function spawnCircles() {
   let someCircle = {
     x: mouseX,
     y: mouseY,
-    dx: random(-5, 5),
-    dy: random(-5, 5),
+    dx: 30000,
+    dy: 30000,
     radius: random(10, 50),
     r: random(255),
     g: random(255),
