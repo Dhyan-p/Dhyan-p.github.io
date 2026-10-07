@@ -11,6 +11,7 @@
 
 ## Projects
 - [Interactive Scene](02-projects/01-scene)
+- [Arrays and Object Notations](02-projects/02-array-objects)
 
 ## External Learning
 - [Bubble Moving](03-external-lerning/01-classes-es6)
