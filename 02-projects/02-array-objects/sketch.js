@@ -8,8 +8,14 @@
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // Build the grid from src/grid.js
+  setupGrid();
 }
 
 function draw() {
   background(220);
+
+  // Render grid from src/grid.js
+  drawGrid();
 }
