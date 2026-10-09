@@ -14,8 +14,9 @@ async function setup() {
 }
 
 function draw() {
-  background(220);
+  background("black");
 
-  // Render grid from src/grid.js
+  // Render grid and pills from src/grid.js
   drawGrid();
+  renderPills();
 }
