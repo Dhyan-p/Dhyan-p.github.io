@@ -17,6 +17,6 @@ function draw() {
   background("black");
 
   // Render grid and pills from src/grid.js
-  drawGrid();
+  drawMaze();
   renderPills();
 }
