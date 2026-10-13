@@ -72,6 +72,10 @@ function setupGrid() {
 // Draw Maze
 function drawMaze() {
   push();
+  stroke("blue");
+  fill("blue");
+  rectMode(CENTER);
+
   // Draw Maze boarder
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
@@ -80,9 +84,6 @@ function drawMaze() {
         // Calculate x and y position of each wall
         let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
         let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
-        // noStroke();
-        fill("blue");
-        rectMode(CENTER);
         square(x, y, gridConfig.cellSize);
       }
     }
@@ -91,9 +92,14 @@ function drawMaze() {
 }
 
 
-// Put pill if applicable
+// Render Pills
 function renderPills() {
   push();
+  fill("pink");
+  noStroke();
+  rectMode(CENTER);
+
+  // Render Pills for each cell
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       // Check if there should be a pill or not using pillIdentifier
@@ -101,9 +107,6 @@ function renderPills() {
         // Calculate x and y position of each pill
         let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
         let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
-        fill("pink");
-        noStroke();
-        rectMode(CENTER);
         square(x, y, pillConfig.pillSide);
       }
     }

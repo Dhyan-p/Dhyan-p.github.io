@@ -3,7 +3,10 @@
 // October 07, 2026
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - Created fixed 2D array grid to render pills and to keep track of where pills, walls and empty space should be alongside with where the sqawn point of the characters Pac-Man and Ghosts
+//
+// Credits:
+// - Credit for images: https://freepacman.org/
 
 
 async function setup() {
