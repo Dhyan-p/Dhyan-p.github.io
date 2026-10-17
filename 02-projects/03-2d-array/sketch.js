@@ -1,4 +1,4 @@
-// Array of Objects
+// 2D Array
 // Dhyan Patel
 // October 07, 2026
 //

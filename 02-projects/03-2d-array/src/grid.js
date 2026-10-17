@@ -57,13 +57,13 @@ function setupGrid() {
   // Use 85% of the total height for scaling
   let totalGridWidth = height * 0.85;
 
-  // Calculate size of each cell
+  // Calculates size of each cell
   gridConfig.cellSize = totalGridWidth / gridConfig.totalCols;
 
   // Set grid height so it won't go off the screen
   let totalGridHeight = gridConfig.cellSize * gridConfig.totalRows;
 
-  // Calculate starting X and Y so that the entire grid center to the screen
+  // Calculates starting X and Y so that the entire grid center to the screen
   gridConfig.startX = (width - totalGridWidth) / 2;
   gridConfig.startY = (height - totalGridHeight) / 2;
 }
