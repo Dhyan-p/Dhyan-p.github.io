@@ -2,6 +2,11 @@
 // WARNING: emptySpaceIdentifier is not used currently but is planned to use for future updates of the game. Ignore emptySpaceIdentifier for now.
 
 // Map State Identifiers
+let Identifiers = {
+  empty: 0, // Walkable empty space
+  pill: 1, // Eatable pills
+  wall: 2 // Solid wall
+};
 let emptySpaceIdentifier = 0; // Walkable empty space 
 let pillIdentifier = 1; // Eatable pills
 let wallIdentifier = 2; // Solid wall
@@ -42,7 +47,6 @@ function setupGrid() {
   // Generate maze array once and then edit generated maze to create actual random maze
   generateMazeArray();
   editGeneratedMaze();
-  console.log(gridMatrix);
 }
 
 
@@ -53,10 +57,10 @@ function generateMazeArray() {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       // If it is a boundary then make a wall if not then put pills instead
       if (r === 0 || r === gridConfig.totalRows - 1 || c === 0 || c === gridConfig.totalCols - 1) {
-        row.push(wallIdentifier);
+        row.push(Identifiers.wall);
       }
       else {
-        row.push(pillIdentifier);
+        row.push(Identifiers.pill);
       }
     }
     gridMatrix.push(row);
@@ -69,14 +73,14 @@ function editGeneratedMaze() {
   // Set 15% chance of having a wall
   let wallChancePercent = 15;
 
-  // Skip firt 2 rows and coloms to create a coridor aroudn the border
+  // Edit gridmatrix to gnerate maze structure
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       if (random(100) < wallChancePercent) {
         // Create maze for left half, then calculate the mirrored position for the right side and set wallIdentifier in gridMatrix
-        gridMatrix[r][c] = wallIdentifier;
+        gridMatrix[r][c] = Identifiers.wall;
         let mirroredCols = gridConfig.totalCols - 1 - c;
-        gridMatrix[r][mirroredCols] = wallIdentifier; 
+        gridMatrix[r][mirroredCols] = Identifiers.wall; 
       }
     }
   }
@@ -94,7 +98,7 @@ function drawMaze() {
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       // Check if there should be wall or not using a wallIdentifier
-      if (gridMatrix[r][c] === wallIdentifier) {
+      if (gridMatrix[r][c] === Identifiers.wall) {
         // Calculate x and y position of each wall
         let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
         let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
@@ -117,7 +121,7 @@ function renderPills() {
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       // Check if there should be a pill or not using pillIdentifier
-      if (gridMatrix[r][c] === pillIdentifier) {
+      if (gridMatrix[r][c] === Identifiers.pill) {
         // Calculate x and y position of each pill
         let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
         let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
