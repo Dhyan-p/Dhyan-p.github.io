@@ -11,6 +11,7 @@
 - [Terrain Generation](01-demos/08-terrain)
 - [Collision Library Demo](01-demos/09-collision)
 - [Randomized Art](01-demos/10-art)
+- [Images and Sound fx](01-demos/11-loading-assets)
 
 ## Projects
 - [Interactive Scene](02-projects/01-scene)
