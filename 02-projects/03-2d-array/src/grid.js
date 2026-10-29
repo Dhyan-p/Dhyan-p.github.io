@@ -1,16 +1,17 @@
 // Source code for grids of 21x19
+// WARNING: In identifiers object, following identifiers is not used for this version of the game: empty, packmanSpawn, blinkySpawn, pinkySpawn, inkySpawn, and clydeSpawn. But will be used for futur updates of the game.
 
-// Map State Identifiers
-let emptySpaceIdentifier = 0; // Walkable empty space 
-let pillIdentifier = 1; // Eatable pills
-let wallIdentifier = 2; // Solid wall
-
-// Character Identifiers
-let pacmanSqawnIdentifier = 3; // Pac-Man
-let blinkySpawnIdentifier = 4; // Red
-let pinkySpawnIdentifier = 5; // Pink
-let inkySpawnIdentifier = 6; // Cyan
-let clydeSpawnIdentifier = 7; // Orange(Yellow)
+// Map State & Character Identifiers
+let identifiers = {
+  empty: 0, // Wakable empty space
+  pill: 1, // Eatable pills
+  wall: 2, // Solid wall
+  packmanSpawn: 3, // Pac-Man
+  blinkySpawn: 4, // Red
+  pinkySqawn: 5, // Pink
+  inkySpawn: 6, // Cyan
+  clydeSpawn: 7, // Orange
+};
 
 // Configuration of grid object
 let gridConfig = {
@@ -80,7 +81,7 @@ function drawMaze() {
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       // Check if there should be wall or not using a wallIdentifier
-      if (fixedMazeGrid[r][c] === wallIdentifier) {
+      if (fixedMazeGrid[r][c] === identifiers.wall) {
         // Calculate x and y position of each wall
         let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
         let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
@@ -103,7 +104,7 @@ function renderPills() {
   for (let r = 0; r < gridConfig.totalRows; r++) {
     for (let c = 0; c < gridConfig.totalCols; c++) {
       // Check if there should be a pill or not using pillIdentifier
-      if (fixedMazeGrid[r][c] === pillIdentifier) {
+      if (fixedMazeGrid[r][c] === identifiers.pill) {
         // Calculate x and y position of each pill
         let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
         let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
