@@ -1,19 +1,27 @@
-// 2D Grid Demo
+// Grid Demo
+//learn 2d arrays
 
-// For Hardcoding
-// let grid = [[1, 0, 1, 0], [0, 1, 1, 0], [1, 0, 0, 1], [0, 1, 0, 1]];
-// let cellSize;
-// const  SQUARE_DIMENSIONS = grid.length;
+// if you are hard coding the grid
+// let grid = [[1, 0, 1, 0],
+//             [0, 1, 1, 0],
+//             [1, 0, 0, 1],
+//             [0, 1, 0, 1]];
+// const SQUARE_DIMENSIONS = grid.length;
 
-const SQUARE_DIENSIONS = 10;
+//if randomizing the grid
+const SQUARE_DIMENSIONS = 10;
 let grid;
 let cellSize;
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
-  cellSize = Math.min(width, height) / SQUARE_DIENSIONS;
-
-  grid = randomizedGrid(SQUARE_DIENSIONS, SQUARE_DIENSIONS);
+  if (width < height) {
+    cellSize = width / SQUARE_DIMENSIONS;
+  }
+  else {
+    cellSize = height / SQUARE_DIMENSIONS;
+  }
+  grid = randomizeGrid(SQUARE_DIMENSIONS, SQUARE_DIMENSIONS);
 }
 
 function draw() {
@@ -22,46 +30,46 @@ function draw() {
 }
 
 function mousePressed() {
-  let x = Math.floor(mouseX / cellSize);
-  let y = Math.floor(mouseY / cellSize);
+  let x = Math.floor(mouseX/cellSize);
+  let y = Math.floor(mouseY/cellSize);
 
+  console.log(x, y);
   toggleCell(x, y);
 }
 
 function toggleCell(x, y) {
-  if (grid[y][x] === 0) {
-    grid[y][x] = 1;
-  }
-  else if (grid[y][x] === 1) {
+  if (grid[y][x] === 1) {
     grid[y][x] = 0;
+  }
+  else if (grid[y][x] === 0) {
+    grid[y][x] = 1;
   }
 }
 
 function showGrid() {
-  for (let r = 0; r < SQUARE_DIENSIONS; r++) {
-    for (let c = 0; c < SQUARE_DIENSIONS; c++) {
-      if (grid[r][c] === 0) {
-        fill("white");
+  for (let y = 0; y < SQUARE_DIMENSIONS; y++) {
+    for (let x = 0; x < SQUARE_DIMENSIONS; x++) {
+      if (grid[y][x] === 1) {
+        fill('black');
       }
-      else if (grid[r][c] === 1) {
-        fill("black");
+      else if (grid[y][x] === 0) {
+        fill('white');
       }
-      square(r * cellSize, c * cellSize, cellSize);
+      square(x * cellSize, y * cellSize, cellSize);
     }
   }
 }
 
-function randomizedGrid(cols, rows) {
+function randomizeGrid(cols, rows) {
   let newGrid = [];
-
-  for (let r = 0; r < rows; r++) {
+  for (let y = 0; y < rows; y++) {
     newGrid.push([]);
-    for (let c = 0; c < cols; c++) {
+    for (let x = 0; x < cols; x++) {
       if (random(100) < 50) {
-        newGrid[r].push(0);
+        newGrid[y].push(0);
       }
       else {
-        newGrid[r].push(1);
+        newGrid[y].push(1);
       }
     }
   }
