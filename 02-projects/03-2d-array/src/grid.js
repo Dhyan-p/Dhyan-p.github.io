@@ -70,6 +70,35 @@ function setupGrid() {
 }
 
 
+// Helper function to render pills or to generate maze
+function render(purpose) {
+  // This function will render pills as well as will generate or draw maze
+  // By the purpose decide what to checke and what to have for size
+  let checker = null;
+  let forSize = null;
+  if (purpose === "drawingMaze") {
+    checker = identifiers.wall;
+    forSize = gridConfig.cellSize;
+  }
+  else if (purpose === "renderPill") {
+    checker = identifiers.pill;
+    forSize = pillConfig.pillSide;
+  }
+
+  for (let rows = 0; rows < gridConfig.totalRows; rows++) {
+    for (let cols = 0; cols < gridConfig.totalCols; cols++) {
+      // Check if there should be wall or pill using a wallIdentifier and pillIdentifier
+      if (fixedMazeGrid[rows][cols] === checker) {
+        // Calculate x and y position of each wall or pill
+        let x = gridConfig.startX + gridConfig.cellSize / 2 + cols * gridConfig.cellSize;
+        let y = gridConfig.startY + gridConfig.cellSize / 2 + rows * gridConfig.cellSize;
+        square(x, y, forSize);
+      }
+    }
+  }
+}
+
+
 // Draw Maze
 function drawMaze() {
   push();
@@ -78,17 +107,18 @@ function drawMaze() {
   rectMode(CENTER);
 
   // Draw Maze boarder
-  for (let r = 0; r < gridConfig.totalRows; r++) {
-    for (let c = 0; c < gridConfig.totalCols; c++) {
-      // Check if there should be wall or not using a wallIdentifier
-      if (fixedMazeGrid[r][c] === identifiers.wall) {
-        // Calculate x and y position of each wall
-        let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
-        let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
-        square(x, y, gridConfig.cellSize);
-      }
-    }
-  }
+  // for (let rows = 0; rows < gridConfig.totalRows; rows++) {
+  //   for (let cols = 0; cols < gridConfig.totalCols; cols++) {
+  //     // Check if there should be wall or not using a wallIdentifier
+  //     if (fixedMazeGrid[rows][cols] === identifiers.wall) {
+  //       // Calculate x and y position of each wall
+  //       let x = gridConfig.startX + gridConfig.cellSize / 2 + cols * gridConfig.cellSize;
+  //       let y = gridConfig.startY + gridConfig.cellSize / 2 + rows * gridConfig.cellSize;
+  //       square(x, y, gridConfig.cellSize);
+  //     }
+  //   }
+  // }
+  render("drawingMaze");
   pop();
 }
 
@@ -101,16 +131,17 @@ function renderPills() {
   rectMode(CENTER);
 
   // Render Pills for each cell
-  for (let r = 0; r < gridConfig.totalRows; r++) {
-    for (let c = 0; c < gridConfig.totalCols; c++) {
-      // Check if there should be a pill or not using pillIdentifier
-      if (fixedMazeGrid[r][c] === identifiers.pill) {
-        // Calculate x and y position of each pill
-        let x = gridConfig.startX + gridConfig.cellSize / 2 + c * gridConfig.cellSize;
-        let y = gridConfig.startY + gridConfig.cellSize / 2 + r * gridConfig.cellSize;
-        square(x, y, pillConfig.pillSide);
-      }
-    }
-  }
+  // for (let rows = 0; rows < gridConfig.totalRows; rows++) {
+  //   for (let cols = 0; cols < gridConfig.totalCols; cols++) {
+  //     // Check if there should be a pill or not using pillIdentifier
+  //     if (fixedMazeGrid[rows][cols] === identifiers.pill) {
+  //       // Calculate x and y position of each pill
+  //       let x = gridConfig.startX + gridConfig.cellSize / 2 + cols * gridConfig.cellSize;
+  //       let y = gridConfig.startY + gridConfig.cellSize / 2 + rows * gridConfig.cellSize;
+  //       square(x, y, pillConfig.pillSide);
+  //     }
+  //   }
+  // }
+  render("renderPill");
   pop();
 }
