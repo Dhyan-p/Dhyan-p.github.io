@@ -53,17 +53,20 @@ let blinkyAssets = {
   up: null,
 };
 
+
+let testing;
+
 async function preLoadImage() {
-  eyeAssets.down = await loadImage("assets/characters/ghosts/eyes_down.svg");
 }
 
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
-
+  
   // Build the grid from src/grid.js and load images from preLoadImage function
   setupGrid();
-  preLoadImage();
+  // await preLoadImage();
+  testing = await loadImage("assets/characters/ghosts/eyes_down1.png");
 }
 
 
