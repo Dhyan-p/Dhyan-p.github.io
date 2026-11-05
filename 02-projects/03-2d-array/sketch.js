@@ -54,9 +54,9 @@ let blinkyAssets = {
 };
 
 
-let testing;
-
+// Preload Image
 async function preLoadImage() {
+  eyeAssets.left = await loadImage("assets/characters/ghosts/eyes_down.png");
 }
 
 
@@ -65,8 +65,7 @@ async function setup() {
   
   // Build the grid from src/grid.js and load images from preLoadImage function
   setupGrid();
-  // await preLoadImage();
-  testing = await loadImage("assets/characters/ghosts/eyes_down1.png");
+  await preLoadImage();
 }
 
 
