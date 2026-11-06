@@ -120,10 +120,21 @@ function setupGrid() {
 function drawPacman() {
   push();
   let pacmanCharacter = pacmanAssets[pacman.currentDirection];
+  
+  // Set source image start point to top left and source image width and height to just the cellSize
+  let sX = 0;
+  let sY = 0;
+  let sWidth = pacmanCharacter.width / 4;
+  let sHeight = pacmanCharacter.height;
+
   imageMode(CENTER);
-  image(pacmanCharacter, pacman.x, pacman.y, gridConfig.cellSize, gridConfig.cellSize);
+  image(pacmanCharacter, pacman.x, pacman.y, gridConfig.cellSize, gridConfig.cellSize, sX, sY, sWidth, sHeight);
   pop();
 }
+
+// Draw Ghosts
+// Draw Blinky
+
 
 // Helper function to render pills or to generate maze
 function render(purpose) {
