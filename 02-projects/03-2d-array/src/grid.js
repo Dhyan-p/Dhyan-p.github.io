@@ -1,6 +1,13 @@
 // Source code for grids of 21x19
 // WARNING: In identifiers object, following identifiers is not used for this version of the game: empty, packmanSpawn, blinkySpawn, pinkySpawn, inkySpawn, and clydeSpawn. But will be used for futur updates of the game.
 
+// While developing keep the default position as mentioned below
+// pacman: left circle
+// blinky: left
+// inky: up
+// pinky: down
+// clyde: up
+
 // Map State & Character Identifiers
 let identifiers = {
   empty: 0, // Wakable empty space
@@ -25,6 +32,25 @@ let gridConfig = {
 // Configuration of pills
 let pillConfig = {
   pillSide: 5
+};
+
+// Characters objects
+let pacman = {
+  row: 0,
+  col: 0,
+  x: 0,
+  y: 0,
+  currentDirection: "left"
+};
+
+// Ghosts
+// Blinky
+let blinky = {
+  row: 0,
+  col: 0,
+  x: 0,
+  y: 0,
+  currentDirection: "left"
 };
 
 // Fixed maze structure
@@ -67,6 +93,26 @@ function setupGrid() {
   // Calculates starting X and Y so that the entire grid center to the screen
   gridConfig.startX = (width - totalGridWidth) / 2;
   gridConfig.startY = (height - totalGridHeight) / 2;
+
+  // Scan matrix and find spawn points and get (x,y) coordinated
+  for (let row = 0; row < gridConfig.totalRows; row++) {
+    for (let col = 0; col < gridConfig.totalCols; col++) {
+      let tile = fixedMazeGrid[row][col];
+
+      if (tile = identifiers.packmanSpawn) {
+        pacman.row = row;
+        pacman.col = col;
+        pacman.x = gridConfig.startX + gridConfig.cellSize / 2 + col * gridConfig.cellSize;
+        pacman.y = gridConfig.startY + gridConfig.cellSize / 2 + row * gridConfig.cellSize;
+      }
+      else if (tile = identifiers.blinkySpawn) {
+        blinky.row = row;
+        blinky.col = col;
+        blinky.x = gridConfig.startX + gridConfig.cellSize / 2 + col * gridConfig.cellSize;
+        blinky.y = gridConfig.startY + gridConfig.cellSize / 2 + row * gridConfig.cellSize;
+      }
+    }
+  }
 }
 
 

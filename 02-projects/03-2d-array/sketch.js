@@ -37,6 +37,7 @@ let pacmanAssets = {
   up: null,
 };
 
+// Ghosts
 // Blinky Assets
 let blinkyAssets = {
   downAngry: null,
@@ -56,7 +57,40 @@ let blinkyAssets = {
 
 // Preload Image
 async function preLoadImage() {
-  eyeAssets.left = await loadImage("assets/characters/ghosts/eyes_down.png");
+  eyeAssets.down = await loadImage("assets/characters/ghosts/eyes_down.png");
+  eyeAssets.left = await loadImage("assets/characters/ghosts/eyes_left.png");
+  eyeAssets.right = await loadImage("assets/characters/ghosts/eyes_right.png");
+  eyeAssets.up = await loadImage("assets/characters/ghosts/eyes_up.png");
+
+  scaredAssets.blue = await loadImage("assets/characters/ghosts/scared_blue.png");
+  scaredAssets.white = await loadImage("assets/characters/ghosts/scared_white.png");
+
+  // Character
+  pacmanAssets.arrowDown = await loadImage("assets/characters/pac-man/arrow_down.png");
+  pacmanAssets.arrowLeft = await loadImage("assets/characters/pac-man/arrow_left.png");
+  pacmanAssets.arrowRight = await loadImage("assets/characters/pac-man/arrow_right.png");
+  pacmanAssets.arrowUp = await loadImage("assets/characters/pac-man/arrow_up.png");
+  pacmanAssets.death = await loadImage("assets/characters/pac-man/pacman_death.png");
+  pacmanAssets.down = await loadImage("assets/characters/pac-man/pacman_down.png");
+  pacmanAssets.error = await loadImage("assets/characters/pac-man/pacman_error.png");
+  pacmanAssets.left = await loadImage("assets/characters/pac-man/pacman_left.png");
+  pacmanAssets.right = await loadImage("assets/characters/pac-man/pacman_right.png");
+  pacmanAssets.up = await loadImage("assets/characters/pac-man/pacman_up.png");
+
+  // Ghosts
+  // Blinky
+  blinkyAssets.downAngry = await loadImage("assets/characters/ghosts/blinky/blinky_down_angry.png");
+  blinkyAssets.downAnnoyed = await loadImage("assets/characters/ghosts/blinky/blinky_down_annoyed.png");
+  blinkyAssets.down = await loadImage("assets/characters/ghosts/blinky/blinky_down.png");
+  blinkyAssets.leftAngry = await loadImage("assets/characters/ghosts/blinky/blinky_left_angry.png");
+  blinkyAssets.leftAnnoyed = await loadImage("assets/characters/ghosts/blinky/blinky_left_annoyed.png");
+  blinkyAssets.left = await loadImage("assets/characters/ghosts/blinky/blinky_left.png");
+  blinkyAssets.rightAngry = await loadImage("assets/characters/ghosts/blinky/blinky_right_angry.png");
+  blinkyAssets.rightAnnoyed = await loadImage("assets/characters/ghosts/blinky/blinky_right_annoyed.png");
+  blinkyAssets.right = await loadImage("assets/characters/ghosts/blinky/blinky_right.png");
+  blinkyAssets.upAngry = await loadImage("assets/characters/ghosts/blinky/blinky_up_angry.png");
+  blinkyAssets.upAnnoyed = await loadImage("assets/characters/ghosts/blinky/blinky_up_annoyed.png");
+  blinkyAssets.up = await loadImage("assets/characters/ghosts/blinky/blinky_up.png");
 }
 
 
