@@ -99,13 +99,13 @@ function setupGrid() {
     for (let col = 0; col < gridConfig.totalCols; col++) {
       let tile = fixedMazeGrid[row][col];
 
-      if (tile = identifiers.packmanSpawn) {
+      if (tile === identifiers.packmanSpawn) {
         pacman.row = row;
         pacman.col = col;
         pacman.x = gridConfig.startX + gridConfig.cellSize / 2 + col * gridConfig.cellSize;
         pacman.y = gridConfig.startY + gridConfig.cellSize / 2 + row * gridConfig.cellSize;
       }
-      else if (tile = identifiers.blinkySpawn) {
+      else if (tile === identifiers.blinkySpawn) {
         blinky.row = row;
         blinky.col = col;
         blinky.x = gridConfig.startX + gridConfig.cellSize / 2 + col * gridConfig.cellSize;
@@ -115,6 +115,15 @@ function setupGrid() {
   }
 }
 
+
+// Draw Pac-man
+function drawPacman() {
+  push();
+  let pacmanCharacter = pacmanAssets[pacman.currentDirection];
+  imageMode(CENTER);
+  image(pacmanCharacter, pacman.x, pacman.y, gridConfig.cellSize, gridConfig.cellSize);
+  pop();
+}
 
 // Helper function to render pills or to generate maze
 function render(purpose) {

@@ -109,4 +109,8 @@ function draw() {
   // Render grid and pills from src/grid.js
   drawMaze();
   renderPills();
+
+  // Render Character
+  // Draw Pac-man
+  drawPacman();
 }
