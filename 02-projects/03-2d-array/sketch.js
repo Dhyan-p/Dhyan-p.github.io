@@ -8,19 +8,24 @@
 // Credits:
 // - Credit for images: https://freepacman.org/
 
+// For Ghosts use dijkstra's algorithm to figure out the path in the grid
+
 // Character Assets Objects
+// For all the assets keep this in mind: when you see numsFrame it is the base number of images in a spike sheet and when you see something added to numsFrame that refers to the specific image for example; numsFrameDeathNError in pacmanAssets refer to death and error image frames not the other images and the numsFrame in pacmanAssets refer to all other image that has been left.
 // Eye Assets
 let eyeAssets = {
   down: null,
   left: null,
   right: null,
   up: null,
+  numsFrame: 2,
 };
 
 // Scared Assets
 let scaredAssets = {
   blue: null,
   white: null,
+  numsFrame: 2,
 };
 
 // Pac-Man Assets
@@ -35,6 +40,8 @@ let pacmanAssets = {
   left: null,
   right: null,
   up: null,
+  numsFrameDeathNError: 11,
+  numsFrame: 4,
 };
 
 // Ghosts
@@ -52,6 +59,7 @@ let blinkyAssets = {
   upAngry: null,
   upAnnoyed: null,
   up: null,
+  numsFrame: 2,
 };
 
 
@@ -113,4 +121,8 @@ function draw() {
   // Render Character
   // Draw Pac-man
   drawPacman();
+
+  // Render Ghosts
+  // Draw Blinky Ghost
+  drawBlinkyGhost();
 }

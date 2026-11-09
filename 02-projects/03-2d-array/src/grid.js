@@ -119,22 +119,43 @@ function setupGrid() {
 // Draw Pac-man
 function drawPacman() {
   push();
-  let pacmanCharacter = pacmanAssets[pacman.currentDirection];
+  let pacmanImg = pacmanAssets[pacman.currentDirection];
   
-  // Set source image start point to top left and source image width and height to just the cellSize
-  let sX = 0;
-  let sY = 0;
-  let sWidth = pacmanCharacter.width / 4;
-  let sHeight = pacmanCharacter.height;
+  // Set variables to use for image
+  let dx = pacman.x;
+  let dy = pacman.y;
+  let dWidth = gridConfig.cellSize;
+  let dHeight = gridConfig.cellSize;
+  let sx = 0;
+  let sy = 0;
+  let sWidth = pacmanImg.width / pacmanAssets.numsFrame;
+  let sHeight = pacmanImg.height;
 
   imageMode(CENTER);
-  image(pacmanCharacter, pacman.x, pacman.y, gridConfig.cellSize, gridConfig.cellSize, sX, sY, sWidth, sHeight);
+  image(pacmanImg, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight);
   pop();
 }
 
 // Draw Ghosts
 // Draw Blinky
+function drawBlinkyGhost() {
+  push();
+  let blinkyGhostImg = blinkyAssets[blinky.currentDirection];
 
+  // Set variables to use for image
+  let dx = blinky.x;
+  let dy = blinky.y;
+  let dWidth = gridConfig.cellSize;
+  let dHeight = gridConfig.cellSize;
+  let sx = 0;
+  let sy = 0;
+  let sWidth = blinkyGhostImg.width / blinkyAssets.numsFrame;
+  let sHeight = blinkyGhostImg.height;
+
+  imageMode(CENTER);
+  image(blinkyGhostImg, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight);
+  pop();
+}
 
 // Helper function to render pills or to generate maze
 function render(purpose) {
