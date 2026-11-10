@@ -140,17 +140,27 @@ function drawPacman() {
 // Draw Blinky
 function drawBlinkyGhost() {
   push();
+  // Variables for image
+  let dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight;
+  let currentBlinkyFrame = 2;
   let blinkyGhostImg = blinkyAssets[blinky.currentDirection];
 
+  // Common variables that does not change for image
+  dx = blinky.x;
+  dy = blinky.y;
+  dWidth = gridConfig.cellSize;
+  dHeight = gridConfig.cellSize;
+  sy = 0;
+  sWidth = blinkyGhostImg.width / blinkyAssets.numsFrame;
+  sHeight = blinkyGhostImg.height;
+
   // Set variables to use for image
-  let dx = blinky.x;
-  let dy = blinky.y;
-  let dWidth = gridConfig.cellSize;
-  let dHeight = gridConfig.cellSize;
-  let sx = 0;
-  let sy = 0;
-  let sWidth = blinkyGhostImg.width / blinkyAssets.numsFrame;
-  let sHeight = blinkyGhostImg.height;
+  if (currentBlinkyFrame === 1) {
+    sx = 0;
+  }
+  if (currentBlinkyFrame === 2) {
+    sx = blinkyGhostImg.width / blinkyAssets.numsFrame;
+  }
 
   imageMode(CENTER);
   image(blinkyGhostImg, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight);
