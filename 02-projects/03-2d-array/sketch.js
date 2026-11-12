@@ -108,6 +108,8 @@ async function setup() {
   // Build the grid from src/grid.js and load images from preLoadImage function
   setupGrid();
   await preLoadImage();
+  window.setInterval(changeBlinkyFrame, 300);
+  window.setInterval(changePacmanFrame, 300);
 }
 
 

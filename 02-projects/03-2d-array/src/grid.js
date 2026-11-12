@@ -75,6 +75,7 @@ function setupGrid() {
   gridConfig.startX = (width - totalGridWidth) / 2;
   gridConfig.startY = (height - totalGridHeight) / 2;
 
+  // pacman and blinky is object in src/pacman.js and src/ghosts.js
   // Scan matrix and find spawn points and get (x,y) coordinated
   for (let row = 0; row < gridConfig.totalRows; row++) {
     for (let col = 0; col < gridConfig.totalCols; col++) {
