@@ -34,25 +34,6 @@ let pillConfig = {
   pillSide: 5
 };
 
-// Characters objects
-let pacman = {
-  row: 0,
-  col: 0,
-  x: 0,
-  y: 0,
-  currentDirection: "left"
-};
-
-// Ghosts
-// Blinky
-let blinky = {
-  row: 0,
-  col: 0,
-  x: 0,
-  y: 0,
-  currentDirection: "left"
-};
-
 // Fixed maze structure
 let fixedMazeGrid = [
   [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
@@ -115,57 +96,6 @@ function setupGrid() {
   }
 }
 
-
-// Draw Pac-man
-function drawPacman() {
-  push();
-  let pacmanImg = pacmanAssets[pacman.currentDirection];
-  
-  // Set variables to use for image
-  let dx = pacman.x;
-  let dy = pacman.y;
-  let dWidth = gridConfig.cellSize;
-  let dHeight = gridConfig.cellSize;
-  let sx = 0;
-  let sy = 0;
-  let sWidth = pacmanImg.width / pacmanAssets.numsFrame;
-  let sHeight = pacmanImg.height;
-
-  imageMode(CENTER);
-  image(pacmanImg, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight);
-  pop();
-}
-
-// Draw Ghosts
-// Draw Blinky
-function drawBlinkyGhost() {
-  push();
-  // Variables for image
-  let dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight;
-  let currentBlinkyFrame = 2;
-  let blinkyGhostImg = blinkyAssets[blinky.currentDirection];
-
-  // Common variables that does not change for image
-  dx = blinky.x;
-  dy = blinky.y;
-  dWidth = gridConfig.cellSize;
-  dHeight = gridConfig.cellSize;
-  sy = 0;
-  sWidth = blinkyGhostImg.width / blinkyAssets.numsFrame;
-  sHeight = blinkyGhostImg.height;
-
-  // Set variables to use for image
-  if (currentBlinkyFrame === 1) {
-    sx = 0;
-  }
-  if (currentBlinkyFrame === 2) {
-    sx = blinkyGhostImg.width / blinkyAssets.numsFrame;
-  }
-
-  imageMode(CENTER);
-  image(blinkyGhostImg, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight);
-  pop();
-}
 
 // Helper function to render pills or to generate maze
 function render(purpose) {
