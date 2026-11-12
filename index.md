@@ -16,6 +16,8 @@
 - [Rectangular Grid](01-demos/13-rect-grid)
 - [Game of Life](01-demos/14-life)
 - [Character in Grid](01-demos/15-character)
+- [setTimeout](01-demos/16-set-timeout)
+- [setInterval](01-demos/17-set-interval)
 
 ## Projects
 - [Interactive Scene](02-projects/01-scene)
