@@ -36,7 +36,7 @@ function drawBlinkyGhost() {
     sx = 0;
   }
   if (currentBlinkyFrame === 2) {
-    sx = blinkyGhostImg.width / blinkyAssets.numsFrame;
+    sx = sWidth;
   }
 
   imageMode(CENTER);
@@ -44,6 +44,8 @@ function drawBlinkyGhost() {
   pop();
 }
 
+
+// Change currentFrame
 function changeBlinkyFrame() {
   if (currentBlinkyFrame === blinkyAssets.numsFrame) {
     currentBlinkyFrame = 1;
