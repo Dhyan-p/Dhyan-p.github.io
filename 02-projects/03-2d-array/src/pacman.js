@@ -86,7 +86,7 @@ function keyPressed() {
 // Move pacman
 function movePacman(x, y) {
   // Make sure pacman don't go off the grid
-  if (x >= 0 && x < gridConfig.totalCols && y >= 0 && y < gridConfig.totalRows && (fixedMazeGrid[y][x] === identifiers.empty || fixedMazeGrid[y][x] === identifiers.pill)) {
+  if (x >= 0 && x < gridConfig.totalCols * gridConfig.cellSize && y >= 0 && y < gridConfig.totalRows * gridConfig.cellSize && (fixedMazeGrid[Math.floor(y/gridConfig.totalCols)][Math.floor(x/gridConfig.totalRows)] === identifiers.empty || fixedMazeGrid[Math.floor(y/gridConfig.totalCols)][Math.floor(x/gridConfig.totalRows)] === identifiers.pill)) {
     // Keep track of pacman's old position
     let odlX = pacman.x;
     let oldY = pacman.y;
