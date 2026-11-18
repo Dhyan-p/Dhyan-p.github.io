@@ -84,8 +84,12 @@ function setupGrid() {
       if (tile === identifiers.packmanSpawn) {
         pacman.row = row;
         pacman.col = col;
+        pacman.targetRow = row;
+        pacman.targetCol = col;
         pacman.x = gridConfig.startX + gridConfig.cellSize / 2 + col * gridConfig.cellSize;
         pacman.y = gridConfig.startY + gridConfig.cellSize / 2 + row * gridConfig.cellSize;
+        pacman.targetX = pacman.x;
+        pacman.targetY = pacman.y;
       }
       else if (tile === identifiers.blinkySpawn) {
         blinky.row = row;

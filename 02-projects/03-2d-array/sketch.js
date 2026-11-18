@@ -122,9 +122,9 @@ function draw() {
   drawMaze();
   renderPills();
 
-  // Render Character
-  // Draw Pac-man
+  // Draw pacman and move it
   drawPacman();
+  movePacman();
 
   // Render Ghosts
   // Draw Blinky Ghost

@@ -10,7 +10,13 @@ let pacman = {
   col: 0,
   x: 0,
   y: 0,
-  currentDirection: "left"
+  targetX: 0,
+  targetY: 0,
+  targetRow: 0,
+  targetCol: 0,
+  isMoving: false,
+  currentDirection: "left", // Default direction
+  nextDirection: "left", // Player queue direction
 };
 
 
@@ -59,46 +65,32 @@ function changePacmanFrame() {
 }
 
 
+// Change direction on key press
 function keyPressed() {
-  if (key.toLowerCase() === "w") {
-    movePacman(pacman.x, pacman.y - 1);
-    console.log("w");
-    console.log(pacman.x, pacman.y - 1);
+  // Make key lowercase
+  let checkKey = key.toLowerCase();
+
+  if (checkKey === 'a' || key === LEFT_ARROW) {
+    pacman.nextDirection = "left";
   }
-  if (key.toLowerCase() === "s") {
-    movePacman(pacman.x, pacman.y + 1);
-    console.log("s");
-    console.log(pacman.x, pacman.y + 1);
+  else if (checkKey === 'd' || key === RIGHT_ARROW) {
+    pacman.nextDirection = "right";
   }
-  if (key.toLowerCase() === "d") {
-    movePacman(pacman.x + 1, pacman.y);
-    console.log("d");
-    console.log(pacman.x + 1, pacman.y);
+  else if (checkKey === 'w' || key === UP_ARROW) {
+    pacman.nextDirection = "up";
   }
-  if (key.toLowerCase() === "a") {
-    movePacman(pacman.x - 1, pacman.y);
-    console.log("a");
-    console.log(pacman.x - 1, pacman.y);
+  else if (checkKey === 's' || key === DOWN_ARROW) {
+    pacman.nextDirection = "down";
   }
 }
 
 
-// Move pacman
-function movePacman(x, y) {
-  // Make sure pacman don't go off the grid
-  if (x >= 0 && x < gridConfig.totalCols * gridConfig.cellSize && y >= 0 && y < gridConfig.totalRows * gridConfig.cellSize && (fixedMazeGrid[Math.floor(y/gridConfig.totalCols)][Math.floor(x/gridConfig.totalRows)] === identifiers.empty || fixedMazeGrid[Math.floor(y/gridConfig.totalCols)][Math.floor(x/gridConfig.totalRows)] === identifiers.pill)) {
-    // Keep track of pacman's old position
-    let odlX = pacman.x;
-    let oldY = pacman.y;
-    console.log(odlX, oldY);
+// Move pacman using lerp
+function movePacman() {
+  // If pacman has completed moving to the desire tile, pick the next tile direction
+  if (!pacman.isMoving) {
+    let chosenDirection = pacman.currentDirection;
 
-    // Move pacman
-    pacman.x = x;
-    pacman.y = y;
-    console.log(pacman.x, pacman.y);
-
-    // Change pacman position in the grid and change previous position to empty slot
-    fixedMazeGrid[pacman.y][pacman.x] = identifiers.packmanSpawn;
-    fixedMazeGrid[oldY][odlX] = identifiers.empty;
+    // Check if the nextDirection is open to move
   }
 }
