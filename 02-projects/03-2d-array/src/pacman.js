@@ -92,5 +92,39 @@ function movePacman() {
     let chosenDirection = pacman.currentDirection;
 
     // Check if the nextDirection is open to move
+    let nextOffSet = getOffSet(pacman.nextDirection);
+    let rowOffSet = pacman.row + nextOffSet.row;
+    let colOffSet = pacman.col + nextOffSet.col;
+
+    // Check if pacman can move to the nextDirection
+    if (canMove(colOffSet, rowOffSet)) {
+      pacman.targetX = colOffSet;
+      pacman.targetY = rowOffSet;
+    }
   }
+}
+
+
+// Find the grid direction
+function getOffSet(theDirection) {
+  if (theDirection === "left") {
+    return {col: -1, row: 0};
+  }
+  else if (theDirection === "right") {
+    return {col: 1, row: 0};
+  }
+  else if (theDirection === "up") {
+    return {col: 0, row: -1};
+  }
+  else if (theDirection === "down") {
+    return {col: 0, row: 1};
+  }
+}
+
+
+function canMove(col, row) {
+  if (fixedMazeGrid[row][col] !== identifiers.wall) {
+    return true;
+  }
+  return false;
 }
