@@ -82,8 +82,26 @@ function keyPressed() {
   else if (checkKey === 's' || key === DOWN_ARROW) {
     pacman.nextDirection = "down";
   }
+
+  // If switch to opposite direction mid tile
+  if (pacman.isMoving && isOpposite(pacman.currentDirection, pacman.nextDirection)) {
+    pacman.currentDirection = pacman.nextDirection;
+    let tempRow = pacman.row;
+    let tempCol = pacman.col;
+    pacman.row = pacman.targetRow;
+    pacman.col = pacman.targetCol;
+    pacman.targetRow = tempRow;
+    pacman.targetCol = tempCol;
+    pacman.targetX = gridConfig.startX + gridConfig.cellSize / 2 + tempCol * gridConfig.cellSize;
+    pacman.targetY = gridConfig.startY + gridConfig.cellSize / 2 + tempRow * gridConfig.cellSize;
+  }
 }
 
+
+// Check if two directions are exact opposite
+function isOpposite(dir1, dir2) {
+  return (dir1 === "left" && dir2 === "right") || (dir1 === "right" && dir2 === "left") || (dir1 === "up" && dir2 === "down") || (dir1 === "down" && dir2 === "up");
+}
 
 // Move pacman using lerp
 function movePacman() {
