@@ -139,7 +139,7 @@ function movePacman() {
 
   // Make pacman move smoothly with lerp function
   if (pacman.isMoving) {
-    // set lerp speed to 15% of remaining distance
+    // set lerp speed to 25% of remaining distance
     let lerpSpeed = 0.25;
     pacman.x = lerp(pacman.x, pacman.targetX, lerpSpeed);
     pacman.y = lerp(pacman.y, pacman.targetY, lerpSpeed);
