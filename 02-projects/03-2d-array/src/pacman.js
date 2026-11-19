@@ -93,13 +93,47 @@ function movePacman() {
 
     // Check if the nextDirection is open to move
     let nextOffSet = getOffSet(pacman.nextDirection);
-    let rowOffSet = pacman.row + nextOffSet.row;
-    let colOffSet = pacman.col + nextOffSet.col;
+    let nextTestRow = pacman.row + nextOffSet.row;
+    let nextTestCol = pacman.col + nextOffSet.col;
 
-    // Check if pacman can move to the nextDirection
-    if (canMove(colOffSet, rowOffSet)) {
-      pacman.targetX = colOffSet;
-      pacman.targetY = rowOffSet;
+    // Check if pacman nextDirection is valid to move or not
+    if (canMoveTo(nextTestRow, nextTestCol)) {
+      // Turn into nextDirection
+      chosenDirection = pacman.nextDirection;
+    }
+
+    // Now check if the valid nextDirection can be walked into
+    let curretOffSet = getOffSet(chosenDirection);
+    let targetRow = pacman.row + curretOffSet.row;
+    let targetCol = pacman.col + curretOffSet.col;
+
+    if (canMoveTo(targetRow, targetCol)) {
+      pacman.currentDirection = chosenDirection;
+      pacman.targetRow = targetRow;
+      pacman.targetCol = targetCol;
+
+      // Calculate pixel cordinates for center of the target tile
+      pacman.targetX = gridConfig.startX + gridConfig.cellSize / 2 + targetCol * gridConfig.cellSize;
+      pacman.targetY = gridConfig.startY + gridConfig.cellSize / 2 + targetRow * gridConfig.cellSize;
+      pacman.isMoving = true;
+    }
+  }
+
+  // Make pacman move smoothly with lerp function
+  if (pacman.isMoving) {
+    // set lerp speed to 15% of remaining distance
+    let lerpSpeed = 0.25;
+    pacman.x = lerp(pacman.x, pacman.targetX, lerpSpeed);
+    pacman.y = lerp(pacman.y, pacman.targetY, lerpSpeed);
+
+    // If pacman already coverd half the pixel target, then skip to destination till
+    let distance = dist(pacman.x, pacman.y, pacman.targetX, pacman.targetY);
+    if (distance < 0.5) {
+      pacman.x = pacman.targetX;
+      pacman.y = pacman.targetY;
+      pacman.row = pacman.targetRow;
+      pacman.col = pacman.targetCol;
+      pacman.isMoving = false; // Get ready to calculate next tile
     }
   }
 }
@@ -119,12 +153,16 @@ function getOffSet(theDirection) {
   else if (theDirection === "down") {
     return {col: 0, row: 1};
   }
+  return {col: 0, row: 0};
 }
 
 
-function canMove(col, row) {
-  if (fixedMazeGrid[row][col] !== identifiers.wall) {
-    return true;
+// Helper function
+function canMoveTo(row, col) {
+  // Check grid boundaries
+  if (row < 0 || row >= gridConfig.totalRows || col < 0 || col >= gridConfig.totalCols) {
+    return false;
   }
-  return false;
+  // Check if tile is not a wall
+  return fixedMazeGrid[row][col] !== identifiers.wall;
 }

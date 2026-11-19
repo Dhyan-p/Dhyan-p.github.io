@@ -127,6 +127,5 @@ function draw() {
   movePacman();
 
   // Render Ghosts
-  // Draw Blinky Ghost
   drawBlinkyGhost();
 }
