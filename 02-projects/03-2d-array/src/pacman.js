@@ -17,7 +17,24 @@ let pacman = {
   isMoving: false,
   currentDirection: "left", // Default direction
   nextDirection: "left", // Player queue direction
+  arrowDirection: "arrowLeft",
 };
+
+
+// Draw direction arrow
+function drawDirectionArrow() {
+  push();
+  let arrowPixel = 64;
+  let pacmanArrow = pacmanAssets[pacman.arrowDirection];
+
+  let dx = pacman.x - pacman.col * gridConfig.cellSize - arrowPixel;
+  let dy = pacman.y - pacman.row * gridConfig.cellSize - arrowPixel;
+  let dWidth = 64;
+  let dHeight = 64;
+
+  image(pacmanArrow, dx, dy, dWidth, dHeight);
+  pop();
+}
 
 
 // Draw Pac-man
@@ -72,15 +89,19 @@ function keyPressed() {
 
   if (checkKey === 'a' || key === LEFT_ARROW) {
     pacman.nextDirection = "left";
+    pacman.arrowDirection = "arrowLeft";
   }
   else if (checkKey === 'd' || key === RIGHT_ARROW) {
     pacman.nextDirection = "right";
+    pacman.arrowDirection = "arrowRight";
   }
   else if (checkKey === 'w' || key === UP_ARROW) {
     pacman.nextDirection = "up";
+    pacman.arrowDirection = "arrowUp";
   }
   else if (checkKey === 's' || key === DOWN_ARROW) {
     pacman.nextDirection = "down";
+    pacman.arrowDirection = "arrowDown";
   }
 
   // If switch to opposite direction mid tile
