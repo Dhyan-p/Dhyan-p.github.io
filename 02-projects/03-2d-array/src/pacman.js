@@ -10,10 +10,14 @@ let pacman = {
   col: 0,
   x: 0,
   y: 0,
+  startX: 0,
+  startY: 0,
   targetX: 0,
   targetY: 0,
   targetRow: 0,
   targetCol: 0,
+  progress: 0, // O at start 1 when reached the target
+  speed: 0.08, // How much progress increases per frame
   isMoving: false,
   currentDirection: "left", // Default direction
   nextDirection: "left", // Player queue direction
@@ -24,15 +28,22 @@ let pacman = {
 // Draw direction arrow
 function drawDirectionArrow() {
   push();
-  let arrowPixel = 64;
-  let pacmanArrow = pacmanAssets[pacman.arrowDirection];
+  imageMode(CENTER);
+  
+  // Get grid offsets for the nextDirection
+  let distance = gridConfig.cellSize * 0.2; // get the arrow image center to pacman so the arrow stays near pacman
+  let offSet = getOffSet(pacman.nextDirection);
+  let dx = pacman.x + offSet.col * distance;
+  let dy = pacman.y + offSet.row * distance;
 
-  let dx = pacman.x - pacman.col * gridConfig.cellSize - arrowPixel;
-  let dy = pacman.y - pacman.row * gridConfig.cellSize - arrowPixel;
-  let dWidth = 64;
-  let dHeight = 64;
+  // Scaling arrow size
+  let dWidth = gridConfig.cellSize * 1.95;
+  let dHeight = gridConfig.cellSize * 1.95;
 
-  image(pacmanArrow, dx, dy, dWidth, dHeight);
+  // Pick the direction image
+  let directionArrowImg = pacmanAssets[pacman.arrowDirection];
+
+  image(directionArrowImg, dx, dy, dWidth, dHeight);
   pop();
 }
 
@@ -47,6 +58,8 @@ function drawPacman() {
   let dy = pacman.y;
   let dWidth = gridConfig.cellSize;
   let dHeight = gridConfig.cellSize;
+
+  // Start position, width, and height
   let sy = 0;
   let sWidth = pacmanImg.width / pacmanAssets.numsFrame;
   let sHeight = pacmanImg.height;
@@ -151,28 +164,34 @@ function movePacman() {
       pacman.targetRow = targetRow;
       pacman.targetCol = targetCol;
 
-      // Calculate pixel cordinates for center of the target tile
+      // Lock the starting position to pacman's current position
+      pacman.startX = pacman.x;
+      pacman.startY = pacman.y;
+
+      // Calculate pixel cordinates for center of the target tile and reset progress
       pacman.targetX = gridConfig.startX + gridConfig.cellSize / 2 + targetCol * gridConfig.cellSize;
       pacman.targetY = gridConfig.startY + gridConfig.cellSize / 2 + targetRow * gridConfig.cellSize;
+      pacman.progress = 0;
       pacman.isMoving = true;
     }
   }
 
   // Make pacman move smoothly with lerp function
   if (pacman.isMoving) {
-    // set lerp speed to 25% of remaining distance
-    let lerpSpeed = 0.25;
-    pacman.x = lerp(pacman.x, pacman.targetX, lerpSpeed);
-    pacman.y = lerp(pacman.y, pacman.targetY, lerpSpeed);
+    // Constant progress each frame
+    pacman.progress += pacman.speed;
 
-    // If pacman already coverd half the pixel target, then skip to destination till
-    let distance = dist(pacman.x, pacman.y, pacman.targetX, pacman.targetY);
-    if (distance < 0.5) {
+    // When reached the target
+    if (pacman.progress >= 1.0) {
       pacman.x = pacman.targetX;
       pacman.y = pacman.targetY;
       pacman.row = pacman.targetRow;
       pacman.col = pacman.targetCol;
-      pacman.isMoving = false; // Get ready to calculate next tile
+      pacman.isMoving = false;
+    }
+    else {
+      pacman.x = lerp(pacman.startX, pacman.targetX, pacman.progress);
+      pacman.y = lerp(pacman.startY, pacman.targetY, pacman.progress);
     }
   }
 }

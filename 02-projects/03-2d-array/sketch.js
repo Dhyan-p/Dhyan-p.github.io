@@ -3,11 +3,13 @@
 // October 07, 2026
 //
 // Extra for Experts:
-// 
+// - I used smooth character movement using lerp() function. Instead of moving pacman from 1 tile to another, I used progress that increase based on the speed to have continuous, uniform motion.
+// - Also to have dynamic motion for the direction arrow, I used the calculated pacman's lerp motion to move the arrow accordingly. That make sures that arrow moves smoothly along with pacman's motion.
 //
 // Credits:
 // - Credit for images: https://freepacman.org/
 
+// Note for developer
 // For Ghosts use dijkstra's algorithm to figure out the path in the grid
 
 // Character Assets Objects
@@ -111,7 +113,7 @@ async function setup() {
 
   // Do animation
   window.setInterval(changeBlinkyFrame, 300);
-  window.setInterval(changePacmanFrame, 150);
+  window.setInterval(changePacmanFrame, 110);
 }
 
 
@@ -123,6 +125,7 @@ function draw() {
   renderPills();
 
   // Draw pacman and move it
+  drawDirectionArrow();
   drawPacman();
   movePacman();
 

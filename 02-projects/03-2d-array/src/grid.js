@@ -88,6 +88,8 @@ function setupGrid() {
         pacman.targetCol = col;
         pacman.x = gridConfig.startX + gridConfig.cellSize / 2 + col * gridConfig.cellSize;
         pacman.y = gridConfig.startY + gridConfig.cellSize / 2 + row * gridConfig.cellSize;
+        pacman.startX = pacman.x;
+        pacman.startY = pacman.y;
         pacman.targetX = pacman.x;
         pacman.targetY = pacman.y;
       }
