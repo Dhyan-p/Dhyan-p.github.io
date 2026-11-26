@@ -19,6 +19,7 @@
 - [setTimeout](01-demos/16-set-timeout)
 - [setInterval](01-demos/17-set-interval)
 - [Walker OOP](01-demos/18-walker)
+- [Fireworks](01-demos/19-fireworks)
 
 ## Projects
 - [Interactive Scene](02-projects/01-scene)
